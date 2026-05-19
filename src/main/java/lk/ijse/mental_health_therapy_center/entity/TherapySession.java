@@ -1,10 +1,17 @@
 package lk.ijse.mental_health_therapy_center.entity;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
-@Table(name = "therapy_sessions")
+@Table(name = "therapy_session")
 public class TherapySession {
 
     @Id
@@ -12,83 +19,26 @@ public class TherapySession {
     @Column(name = "session_id")
     private int sessionId;
 
-    @Column(name = "session_date", nullable = false)
-    private LocalDateTime sessionDate;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status = Status.SCHEDULED;
-
-    @Column(name = "notes", length = 500)
-    private String notes;
-
-    // Many Sessions → One Patient
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id", nullable = false)
+    @ManyToOne
+    @MapsId("patientId")
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 
-    // Many Sessions → One Therapist
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "therapist_id", nullable = false)
+    @ManyToOne
+    @MapsId("therapistId")
+    @JoinColumn(name = "therapist_id")
     private Therapist therapist;
 
-    // Many Sessions → One TherapyProgram
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "program_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "program_id")
     private TherapyProgram therapyProgram;
 
-    public enum Status {
-        SCHEDULED,
-        COMPLETED,
-        CANCELLED,
-        RESCHEDULED
-    }
+    private LocalDate date;
+    private String sessionName;
+    private String patientName;
+    private String programName;
+    private String therapistName;
+    private LocalDate sessionDate;
 
-    public TherapySession() {}
-    public TherapySession(LocalDateTime sessionDate, Patient patient, Therapist therapist, TherapyProgram therapyProgram) {
-        this.sessionDate = sessionDate;
-        this.patient = patient;
-        this.therapist = therapist;
-        this.therapyProgram = therapyProgram;
-    }
 
-    public int getSessionId(){
-        return sessionId;
-    }
-    public LocalDateTime getSessionDate(){
-        return sessionDate;
-    }
-    public void setSessionDate(LocalDateTime d){
-        this.sessionDate = d;
-    }
-    public Status getStatus(){
-        return status;
-    }
-    public void setStatus(Status s){
-        this.status = s;
-    }
-    public String getNotes(){
-        return notes;
-    }
-    public void setNotes(String n){
-        this.notes = n;
-    }
-    public Patient getPatient(){
-        return patient;
-    }
-    public void setPatient(Patient p){
-        this.patient = p;
-    }
-    public Therapist getTherapist(){
-        return therapist;
-    }
-    public void setTherapist(Therapist t){
-        this.therapist = t;
-    }
-    public TherapyProgram getTherapyProgram(){
-        return therapyProgram;
-    }
-    public void setTherapyProgram(TherapyProgram p) {
-        this.therapyProgram = p;
-    }
 }
