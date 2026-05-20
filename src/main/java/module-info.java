@@ -1,7 +1,7 @@
 module lk.ijse.mental_health_therapy_center {
     requires javafx.controls;
     requires javafx.fxml;
-    requires javafx.web;
+  //  requires javafx.web;
 
     requires net.sf.jasperreports.core;
     requires jakarta.persistence;
@@ -15,11 +15,12 @@ module lk.ijse.mental_health_therapy_center {
     requires java.desktop;
     requires java.mail;
 
-    requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires net.synedra.validatorfx;
-    requires org.kordamp.ikonli.javafx;
-    requires eu.hansolo.tilesfx;
+//    requires org.controlsfx.controls;
+//    requires com.dlsc.formsfx;
+//    requires net.synedra.validatorfx;
+//    requires org.kordamp.ikonli.javafx;
+//    requires eu.hansolo.tilesfx;
+    requires mysql.connector.j;
 
     opens lk.ijse.mental_health_therapy_center to javafx.fxml;
     exports lk.ijse.mental_health_therapy_center;

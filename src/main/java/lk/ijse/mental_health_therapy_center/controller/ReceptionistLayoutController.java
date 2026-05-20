@@ -1,4 +1,4 @@
 package lk.ijse.mental_health_therapy_center.controller;
 
-public class AdminSidebarController {
+public class ReceptionistLayoutController {
 }

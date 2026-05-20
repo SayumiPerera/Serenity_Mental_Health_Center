@@ -1,14 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lk.ijse.mental_health_therapy_center.controller.TherapyProgramController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="650.0" prefWidth="712.0" style="-fx-background-color: #F8FFFB;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.controller.TherapyProgramController">
+
+    <children>
+
+        <!-- Main Container -->
+        <VBox layoutX="20.0" layoutY="20.0" prefHeight="610.0" prefWidth="672.0" spacing="20.0">
+
+            <!-- Header -->
+            <HBox alignment="CENTER" prefHeight="70.0" style="-fx-background-color: linear-gradient(to right, #16A34A, #22C55E); -fx-background-radius: 18;">
+
+                <children>
+                    <Label style="-fx-font-weight: bold;" text="THERAPY PROGRAM MANAGEMENT" textFill="WHITE">
+                        <font>
+                            <Font size="28.0" />
+                        </font>
+                    </Label>
+                </children>
+            </HBox>
+
+            <!-- Form Card -->
+            <VBox spacing="18.0" style="-fx-background-color: white;                          -fx-background-radius: 20;                          -fx-border-radius: 20;                          -fx-border-color: #BBF7D0;                          -fx-border-width: 1.5;                          -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 3);">
+
+                <padding>
+                    <Insets bottom="25" left="25" right="25" top="25" />
+                </padding>
+
+                <children>
+
+                    <!-- Row 1 -->
+                    <HBox spacing="20.0">
+
+                        <VBox spacing="8.0">
+                            <children>
+                                <Label style="-fx-font-weight: bold;" text="Program ID" textFill="#166534" />
+
+                                <TextField fx:id="TxtId" prefWidth="280.0" promptText="Enter program id" style="-fx-background-color: #F0FDF4;                                                   -fx-text-fill: #166534;                                                   -fx-prompt-text-fill: #6B7280;                                                   -fx-border-color: #86EFAC;                                                   -fx-border-radius: 10;                                                   -fx-background-radius: 10;" />
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="8.0">
+                            <children>
+                                <Label style="-fx-font-weight: bold;" text="Program Name" textFill="#166534" />
+
+                                <TextField fx:id="TxtName" prefWidth="280.0" promptText="Enter therapy program" style="-fx-background-color: #F0FDF4;                                                   -fx-text-fill: #166534;                                                   -fx-prompt-text-fill: #6B7280;                                                   -fx-border-color: #86EFAC;                                                   -fx-border-radius: 10;                                                   -fx-background-radius: 10;" />
+                            </children>
+                        </VBox>
+
+                    </HBox>
+
+                    <!-- Row 2 -->
+                    <HBox spacing="20.0">
+
+                        <VBox spacing="8.0">
+                            <children>
+                                <Label style="-fx-font-weight: bold;" text="Duration" textFill="#166534" />
+
+                                <TextField fx:id="TxtDuration" prefWidth="280.0" promptText="Ex : 3 Months" style="-fx-background-color: #F0FDF4;                                                   -fx-text-fill: #166534;                                                   -fx-prompt-text-fill: #6B7280;                                                   -fx-border-color: #86EFAC;                                                   -fx-border-radius: 10;                                                   -fx-background-radius: 10;" />
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="8.0">
+                            <children>
+                                <Label style="-fx-font-weight: bold;" text="Fee" textFill="#166534" />
+
+                                <TextField fx:id="TxtFee" prefWidth="280.0" promptText="Enter fee amount" style="-fx-background-color: #F0FDF4;                                                   -fx-text-fill: #166534;                                                   -fx-prompt-text-fill: #6B7280;                                                   -fx-border-color: #86EFAC;                                                   -fx-border-radius: 10;                                                   -fx-background-radius: 10;" />
+                            </children>
+                        </VBox>
+
+                    </HBox>
+
+                    <!-- Buttons -->
+                    <HBox alignment="CENTER" prefHeight="60.0" spacing="18.0">
+
+                        <children>
+
+                            <Button fx:id="BtnAdd" mnemonicParsing="false" onAction="#BtnAddOnAction" prefHeight="38.0" prefWidth="120.0" style="-fx-background-color: #22C55E;                                            -fx-font-weight: bold;                                            -fx-background-radius: 12;" text="Add" textFill="WHITE" />
+
+                            <Button fx:id="BtnUpdate" mnemonicParsing="false" onAction="#BtnUpdateOnAction" prefHeight="38.0" prefWidth="120.0" style="-fx-background-color: #16A34A;                                            -fx-font-weight: bold;                                            -fx-background-radius: 12;" text="Update" textFill="WHITE" />
+
+                            <Button fx:id="BtnDelete" mnemonicParsing="false" onAction="#BtnDeleteOnAction" prefHeight="38.0" prefWidth="120.0" style="-fx-background-color: #DC2626;                                            -fx-font-weight: bold;                                            -fx-background-radius: 12;" text="Delete" textFill="WHITE" />
+
+                            <Button fx:id="BtnReset" mnemonicParsing="false" onAction="#BtnResetOnAction" prefHeight="38.0" prefWidth="120.0" style="-fx-background-color: #F59E0B;                                            -fx-font-weight: bold;                                            -fx-background-radius: 12;" text="Reset" textFill="WHITE" />
+
+                        </children>
+                    </HBox>
+
+                </children>
+            </VBox>
+
+            <!-- Table -->
+            <TableView fx:id="TblPrograms" onMouseClicked="#TblProgramsOnAction" prefHeight="320.0" prefWidth="672.0" style="-fx-background-color: white;                               -fx-border-color: #BBF7D0;                               -fx-border-radius: 15;                               -fx-background-radius: 15;                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
+
+                <columns>
+
+                    <TableColumn fx:id="ColId" prefWidth="90.0" text="ID" />
+
+                    <TableColumn fx:id="ColName" prefWidth="220.0" text="Program Name" />
+
+                    <TableColumn fx:id="ColDuration" prefWidth="170.0" text="Duration" />
+
+                    <TableColumn fx:id="ColFee" prefWidth="170.0" text="Fee" />
+
+                </columns>
+
+            </TableView>
+
+        </VBox>
+
+    </children>
 
 </AnchorPane>

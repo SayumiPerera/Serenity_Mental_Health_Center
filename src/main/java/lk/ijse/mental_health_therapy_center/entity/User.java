@@ -1,37 +1,41 @@
 package lk.ijse.mental_health_therapy_center.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private int userId;
-
+    @Column(name = "username", nullable = false, unique = true, length = 30)
     private String username;
-    private String password;
-    private String email;
 
-    @Column(name = "full_name")
-    private String name;
+    @Column(name = "password", nullable = false)
+    private String password;           // BCrypt hash stored here — NEVER plain text
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Patient> patients;
+    @Column(name = "role", nullable = false, length = 20)
+    private String role;               // "ADMIN" or "RECEPTIONIST"
 
-    public enum role {
-        ADMIN,
-        RECEPTIONIST,
+    // ─── Getters & Setters ────────────────────────────────────────────────────
+
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
