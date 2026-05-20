@@ -1,6 +1,12 @@
 package lk.ijse.mental_health_therapy_center.bo.custom;
 
+import lk.ijse.mental_health_therapy_center.dto.UserDTO;
+import lk.ijse.mental_health_therapy_center.entity.User;
 import lk.ijse.mental_health_therapy_center.exception.LoginException;
+import lk.ijse.mental_health_therapy_center.tm.UserTM;
+
+import java.util.List;
+import java.util.Map;
 
 public interface UserBO {
 
@@ -18,4 +24,32 @@ public interface UserBO {
      * @throws LoginException if user not found
      */
     String getUserRole(String username) throws LoginException, Exception;
+
+
+    void initializeDefaultUsers();
+
+    User searchUserByEmail(String email);
+
+    User searchUserByAdminEmail(String adMail);
+
+    boolean updateUser(UserDTO userDTO);
+
+    List<UserDTO> getAllUser();
+
+    boolean deleteUser(String email);
+
+    boolean addUser(UserDTO userDTO);
+
+    String generateNextUserId();
+
+    void initialize();
+
+    boolean saveUser(UserDTO userDTO);
+
+    UserTM getAllUsers();
+
+    Map<String, String> getRecentUserLogins();
+
+
+
 }

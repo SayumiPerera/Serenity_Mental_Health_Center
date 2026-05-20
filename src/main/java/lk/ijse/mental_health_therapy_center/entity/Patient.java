@@ -39,6 +39,9 @@ public class Patient {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<TherapySession> therapySessions;
 
+    public String getNic() {
+        return "";
+    }
 }
 
 //import jakarta.persistence.*;

@@ -2,57 +2,58 @@ package lk.ijse.mental_health_therapy_center.bo;
 
 import lk.ijse.mental_health_therapy_center.bo.custom.impl.*;
 
+/**
+ * Factory that returns the correct BO implementation for a given BOTypes enum.
+ *
+ * Uses traditional switch-case (Java 11 safe).
+ * If you have bumped pom.xml to Java 17 the arrow-switch version also works,
+ * but this version compiles on any Java version.
+ */
 public class BOFactory {
+
     private static BOFactory boFactory;
 
-    private BOFactory() {
-    }
+    private BOFactory() {}
 
     public static BOFactory getBoFactory() {
-        return (boFactory== null) ? boFactory
-                = new BOFactory() : boFactory;
+        if (boFactory == null) {
+            boFactory = new BOFactory();
+        }
+        return boFactory;
     }
-    public enum BOTypes{
+
+    public enum BOTypes {
         LOGIN,
+        USER,
         PATIENT,
-        PAYMENT,
         THERAPIST,
         THERAPY_PROGRAM,
         THERAPY_SESSION,
         REGISTRATION,
-        USER
+        PAYMENT
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends SuperBO >T getBO(BOTypes boTypes){
-        switch(boTypes){
-            case LOGIN -> {
+    public <T extends SuperBO> T getBO(BOTypes boTypes) {
+        switch (boTypes) {
+            case LOGIN:
                 return (T) new LoginBOImpl();
-            }
-            case PAYMENT -> {
-                return (T) new PaymentBOImpl();
-            }
-            case PATIENT -> {
-                return (T) new PatientBOImpl();
-            }
-            case THERAPIST -> {
-                return (T) new TherapistBOImpl();
-            }
-            case THERAPY_PROGRAM -> {
-                return (T) new TherapyProgramBOImpl();
-            }
-            case THERAPY_SESSION -> {
-                return (T) new TherapySessionBOImpl();
-            }
-            case REGISTRATION -> {
-                return (T) new RegistrationBOImpl();
-            }
-            case USER -> {
+            case USER:
                 return (T) new UserBOImpl();
-            }
-            default -> {
+            case PATIENT:
+                return (T) new PatientBOImpl();
+            case THERAPIST:
+                return (T) new TherapistBOImpl();
+            case THERAPY_PROGRAM:
+                return (T) new TherapyProgramBOImpl();
+            case THERAPY_SESSION:
+                return (T) new TherapySessionBOImpl();
+            case REGISTRATION:
+                return (T) new RegistrationBOImpl();
+            case PAYMENT:
+                return (T) new PaymentBOImpl();
+            default:
                 return null;
-            }
         }
     }
 }

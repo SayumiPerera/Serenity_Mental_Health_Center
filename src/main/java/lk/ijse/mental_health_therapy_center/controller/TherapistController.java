@@ -1,57 +1,268 @@
 package lk.ijse.mental_health_therapy_center.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import lk.ijse.mental_health_therapy_center.bo.BOFactory;
 import lk.ijse.mental_health_therapy_center.bo.custom.TherapistBO;
-import lk.ijse.mental_health_therapy_center.entity.Therapist;
-import lk.ijse.mental_health_therapy_center.exception.RegistrationException;
+import lk.ijse.mental_health_therapy_center.bo.custom.TherapyProgramBO;
+import lk.ijse.mental_health_therapy_center.dto.TherapistDTO;
+import lk.ijse.mental_health_therapy_center.tm.TherapistTM;
 
-import java.util.List;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-/**
- * TherapistController — Façade between Therapist UI and TherapistService.
- * Only Admin-facing operations live here.
- */
-public class TherapistController {
+public class TherapistController implements Initializable {
 
-    private final TherapistBO therapistBO = new TherapistBO();
+    @FXML
+    private TextField txtId;
 
-    /** Add a new therapist. Called from TherapistFormDialog (Add mode). */
-    public Therapist addTherapist(String firstName, String lastName, String email, String phone, String specialization) throws RegistrationException {
-        return therapistBO.addTherapist(firstName, lastName, email, phone, specialization);
+    @FXML
+    private TextField txtName;
+
+    @FXML
+    private TextField txtEmail;
+
+    @FXML
+    private TextField txtPhone;
+
+    @FXML
+    private ComboBox<String> cmbProgram;
+
+    @FXML
+    private Button btnAdd;
+
+    @FXML
+    private Button btnUpdate;
+
+    @FXML
+    private Button btnDelete;
+
+    @FXML
+    private Button btnClear;
+
+    @FXML
+    private TableView<TherapistTM> tblTherapist;
+
+    @FXML
+    private TableColumn<TherapistTM, String> colId;
+
+    @FXML
+    private TableColumn<TherapistTM, String> colName;
+
+    @FXML
+    private TableColumn<TherapistTM, String> colEmail;
+
+    @FXML
+    private TableColumn<TherapistTM, Integer> colPhone;
+
+    @FXML
+    private TableColumn<TherapistTM, String> colProgram;
+
+    TherapistBO therapistBO = BOFactory.getBoFactory().getBO(BOFactory.BOTypes.THERAPIST);
+    TherapyProgramBO therapyProgramBO = BOFactory.getBoFactory().getBO(BOFactory.BOTypes.THERAPY_PROGRAM);
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        colProgram.setCellValueFactory(new PropertyValueFactory<>("program"));
+
+        loadPrograms();
+        refreshPage();
     }
 
-    /** Update an existing therapist. Called from TherapistFormDialog (Edit mode). */
-    public boolean updateTherapist(Therapist therapist) throws RegistrationException {
-        return therapistBO.updateTherapist(therapist);
+    @FXML
+    void btnAddOnAction(ActionEvent event) {
+
+        String id = txtId.getText();
+        String name = txtName.getText();
+        String email = txtEmail.getText();
+        String phoneText = txtPhone.getText();
+        String program = cmbProgram.getValue();
+
+        String namePattern = "^[A-Za-z ]+$";
+        String emailPattern =
+                "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
+
+        if (name.isEmpty() || !name.matches(namePattern)) {
+            new Alert(Alert.AlertType.ERROR,
+                    "Invalid therapist name").show();
+            return;
+        }
+
+        if (email.isEmpty() || !email.matches(emailPattern)) {
+            new Alert(Alert.AlertType.ERROR,
+                    "Invalid email").show();
+            return;
+        }
+
+        if (program == null) {
+            new Alert(Alert.AlertType.ERROR,
+                    "Please select a therapy program").show();
+            return;
+        }
+
+        int phone;
+
+        try {
+            phone = Integer.parseInt(phoneText);
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,
+                    "Invalid phone number").show();
+            return;
+        }
+
+        TherapistDTO dto = new TherapistDTO(id, name, email, phone, program);
+
+        boolean isSaved = therapistBO.saveTherapist(dto);
+
+        if (isSaved) {
+            new Alert(Alert.AlertType.INFORMATION,
+                    "Therapist Saved Successfully").show();
+
+            refreshPage();
+
+        } else {
+            new Alert(Alert.AlertType.ERROR,
+                    "Failed To Save Therapist").show();
+        }
     }
 
-    /** Delete a therapist. Called when Delete is confirmed in the table. */
-    public boolean deleteTherapist(int therapistId) {
-        return therapistBO.deleteTherapist(therapistId);
+    @FXML
+    void btnUpdateOnAction(ActionEvent event) {
+
+        String id = txtId.getText();
+        String name = txtName.getText();
+        String email = txtEmail.getText();
+        String phoneText = txtPhone.getText();
+        String program = cmbProgram.getValue();
+
+        int phone;
+
+        try {
+            phone = Integer.parseInt(phoneText);
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,
+                    "Invalid phone number").show();
+            return;
+        }
+
+        TherapistDTO dto = new TherapistDTO(id, name, email, phone, program);
+
+        boolean isUpdated = therapistBO.updateTherapist(dto);
+
+        if (isUpdated) {
+            new Alert(Alert.AlertType.INFORMATION,
+                    "Therapist Updated Successfully").show();
+
+            refreshPage();
+
+        } else {
+            new Alert(Alert.AlertType.ERROR,
+                    "Failed To Update Therapist").show();
+        }
     }
 
-    /** Toggle a therapist's availability (available / on leave). */
-    public boolean setAvailability(int therapistId, boolean available) {
-        return therapistBO.setAvailability(therapistId, available);
+    @FXML
+    void btnDeleteOnAction(ActionEvent event) {
+
+        String id = txtId.getText();
+        Alert alert = new Alert(
+                Alert.AlertType.CONFIRMATION,
+                "Do you want to delete this therapist?",
+                ButtonType.YES,
+                ButtonType.NO
+        );
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+            boolean isDeleted = therapistBO.deleteTherapist(id);
+
+            if (isDeleted) {
+                new Alert(Alert.AlertType.INFORMATION,
+                        "Therapist Deleted Successfully").show();
+                refreshPage();
+            } else {
+                new Alert(Alert.AlertType.ERROR,
+                        "Failed To Delete Therapist").show();
+            }
+        }
     }
 
-    /** Load all therapists for the table. */
-    public List<Therapist> getAllTherapists() {
-        return therapistBO.getAllTherapists();
+    @FXML
+    void btnClearOnAction(ActionEvent event) {
+        refreshPage();
     }
 
-    /** Load only therapists who are currently available. Used in session booking. */
-    public List<Therapist> getAvailableTherapists() {
-        return therapistBO.getAvailableTherapists();
+    @FXML
+    void tblTherapistOnMouseClicked(MouseEvent event) {
+
+        TherapistTM therapist = tblTherapist.getSelectionModel().getSelectedItem();
+
+        if (therapist != null) {
+
+            txtId.setText(therapist.getId());
+            txtName.setText(therapist.getName());
+            txtEmail.setText(therapist.getEmail());
+            txtPhone.setText(String.valueOf(therapist.getPhone()));
+            cmbProgram.setValue(therapist.getProgram());
+
+            btnAdd.setDisable(true);
+            btnUpdate.setDisable(false);
+            btnDelete.setDisable(false);
+        }
     }
 
-    /** Find therapists by specialization keyword. */
-    public List<Therapist> findBySpecialization(String specialization) {
-        return therapistBO.findBySpecialization(specialization);
+    private void loadPrograms() {
+
+        ArrayList<String> programs = therapyProgramBO.getAllProgramNames();
+        cmbProgram.setItems(FXCollections.observableArrayList(programs)
+        );
     }
 
-    /** Find a single therapist by ID. */
-    public Optional<Therapist> findById(int therapistId) {
-        return therapistBO.findById(therapistId);
+    private void loadTableData() {
+
+        ArrayList<TherapistDTO> therapistList = (ArrayList<TherapistDTO>) therapistBO.getAllTherapists();
+        ObservableList<TherapistTM> tmList = FXCollections.observableArrayList();
+
+        for (TherapistDTO dto : therapistList) {
+            TherapistTM tm = new TherapistTM(dto.getId(), dto.getName(), dto.getEmail(), dto.getPhone(), dto.getProgram());
+            tmList.add(tm);
+        }
+        tblTherapist.setItems(tmList);
+    }
+
+    private void loadNextId() {
+
+        String nextId = therapistBO.getNextTherapistId();
+        txtId.setText(nextId);
+    }
+
+    private void refreshPage() {
+
+        loadNextId();
+        loadTableData();
+
+        txtName.clear();
+        txtEmail.clear();
+        txtPhone.clear();
+
+        cmbProgram.getSelectionModel().clearSelection();
+
+        btnAdd.setDisable(false);
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
     }
 }

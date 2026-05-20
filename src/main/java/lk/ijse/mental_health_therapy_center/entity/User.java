@@ -10,11 +10,12 @@ public class User {
     @Column(name = "username", nullable = false, unique = true, length = 30)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, length = 255)
     private String password;           // BCrypt hash stored here — NEVER plain text
 
     @Column(name = "role", nullable = false, length = 20)
     private String role;               // "ADMIN" or "RECEPTIONIST"
+
 
     // ─── Getters & Setters ────────────────────────────────────────────────────
 

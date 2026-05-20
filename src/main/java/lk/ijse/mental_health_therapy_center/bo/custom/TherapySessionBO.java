@@ -1,4 +1,21 @@
 package lk.ijse.mental_health_therapy_center.bo.custom;
 
-public interface TherapySessionBO {
+import lk.ijse.mental_health_therapy_center.bo.SuperBO;
+import lk.ijse.mental_health_therapy_center.dto.TherapySessionDTO;
+
+import java.util.ArrayList;
+
+public interface TherapySessionBO extends SuperBO {
+
+    boolean saveTherapySession(TherapySessionDTO dto);
+
+    boolean updateTherapySession(TherapySessionDTO dto);
+
+    boolean deleteTherapySession(int sessionId);
+
+    TherapySessionDTO searchTherapySession(int sessionId);
+
+    ArrayList<TherapySessionDTO> getAllTherapySessions();
+
+    String getNextSessionId();
 }

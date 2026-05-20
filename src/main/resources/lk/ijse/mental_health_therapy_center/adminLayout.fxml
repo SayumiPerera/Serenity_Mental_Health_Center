@@ -20,7 +20,7 @@
         style="-fx-background-color: #F5F7FA;"
         xmlns="http://javafx.com/javafx/21"
         xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="lk.ijse.mental_health_therapy_center.controller.AdminDashboardController">
+        fx:controller="lk.ijse.mental_health_therapy_center.controller.AdminLayoutController">
 
     <children>
 

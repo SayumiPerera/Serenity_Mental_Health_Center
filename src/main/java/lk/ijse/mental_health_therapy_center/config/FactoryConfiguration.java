@@ -1,43 +1,47 @@
 package lk.ijse.mental_health_therapy_center.config;
 
 import com.mysql.cj.Session;
+import lk.ijse.mental_health_therapy_center.entity.*;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import com.mysql.cj.Session;
+import java.util.Properties;
 
 public class FactoryConfiguration {
     private static FactoryConfiguration factoryConfiguration;
-    private SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
 
-    private FactoryConfiguration() {
-        Configuration configuration = new Configuration();//add configuration file
-        Properties properties = new Properties();//add properties
+    private FactoryConfiguration(){
 
-        try {
-            properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("hibernate.properties"));//load properties file
-        } catch (IOException e) {
-            /*throw new RuntimeException(e);*/
-            e.printStackTrace();
+        try{
+            Configuration configuration = new Configuration();
+            Properties properties = new Properties();
+            properties.load(getClass().getClassLoader().getResourceAsStream("hibernate.properties"));
+
+            configuration.setProperties(properties)
+                    .addAnnotatedClass(Patient.class)
+                    .addAnnotatedClass(Payment.class)
+                    .addAnnotatedClass(Therapist.class)
+                    .addAnnotatedClass(TherapyProgram.class)
+                    .addAnnotatedClass(TherapySession.class)
+                    .addAnnotatedClass(Registration.class)
+                    .addAnnotatedClass(User.class);
+
+            sessionFactory = configuration.buildSessionFactory();
+
+        }catch (Exception e){
+            throw new RuntimeException("Failed to load hibernate.properties",e);
         }
 
-        configuration.setProperties(properties);
-        configuration.addAnnotatedClass(Users.class);
-        configuration.addAnnotatedClass(Patients.class);
-        configuration.addAnnotatedClass(TherapyProgram.class);
-        configuration.addAnnotatedClass(Registration.class);
-        configuration.addAnnotatedClass(Payment.class);
-        configuration.addAnnotatedClass(Therapist.class);
-        configuration.addAnnotatedClass(TherapySession.class);
-        configuration.addAnnotatedClass(TherapyDetail.class);
-        sessionFactory = configuration.buildSessionFactory();
-
     }
 
-    public static FactoryConfiguration getInstance() {
-        return (factoryConfiguration == null) ? factoryConfiguration = new FactoryConfiguration() : factoryConfiguration;
+    public static FactoryConfiguration getInstance(){
+        return (factoryConfiguration == null)
+                ? factoryConfiguration = new FactoryConfiguration() : factoryConfiguration;
     }
-
-    public Session getSession(){
-        return sessionFactory.openSession();
+    public static Session getSession(){
+        return (Session) sessionFactory.openSession();
     }
-
 }
 
 
