@@ -9,7 +9,7 @@ import java.util.Map;
 public interface PaymentBO extends SuperBO {
 
     boolean savePayment(PaymentDTO paymentDTO, int patientId, int programId) throws Exception;
-    List<PaymentDTO> getAllPayments();
+    List<PaymentDTO> getAllPayments() throws Exception;
     double getTotalPaymentsByPatient(int patientId) throws Exception;
     int generateNextPaymentId() throws Exception;
     List<PaymentDTO> getPaymentsBySession(int sessionId) throws Exception;
@@ -17,4 +17,14 @@ public interface PaymentBO extends SuperBO {
     int getNextPaymentId();
     Map<String, Double> getMonthlyRevenue();
     List<Object[]> getPendingPayments();
+
+    boolean update(PaymentDTO paymentDTO);
+
+    boolean save(PaymentDTO paymentDTO);
+
+    boolean delete(int id);
+
+    List<PaymentDTO> getAll();
+
+    int getNextId();
 }

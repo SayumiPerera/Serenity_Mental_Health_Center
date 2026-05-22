@@ -20,4 +20,8 @@ public interface PatientDAO extends CrudDAO<Patient> {
     Optional<Patient> findByPK(int patientId);
     long getTotalPatientCount();
     Map<String, Long> getPatientCountByGender();
+
+    Patient search(int patientId);
+
+    boolean delete(int id);
 }

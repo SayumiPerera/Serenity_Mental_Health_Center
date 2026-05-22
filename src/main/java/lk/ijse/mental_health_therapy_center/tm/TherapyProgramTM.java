@@ -12,4 +12,12 @@ public class TherapyProgramTM {
     private String name;
     private String duration;
     private double fee;
+
+    public String getProgramName() {
+        return "";
+    }
+
+    public String getProgramId() {
+        return "";
+    }
 }

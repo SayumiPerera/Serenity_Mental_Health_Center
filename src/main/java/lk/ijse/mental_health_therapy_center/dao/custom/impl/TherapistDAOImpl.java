@@ -18,7 +18,7 @@ public class TherapistDAOImpl implements TherapistDAO {
     @Override
     public boolean save(Therapist entity) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -39,9 +39,14 @@ public class TherapistDAOImpl implements TherapistDAO {
     }
 
     @Override
+    public boolean add(Therapist entity) throws Exception {
+        return false;
+    }
+
+    @Override
     public boolean update(Therapist entity) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -65,7 +70,7 @@ public class TherapistDAOImpl implements TherapistDAO {
     @Override
     public boolean delete(String id) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -97,7 +102,7 @@ public class TherapistDAOImpl implements TherapistDAO {
     @Override
     public List<Therapist> getAll() {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
 
@@ -114,7 +119,7 @@ public class TherapistDAOImpl implements TherapistDAO {
     @Override
     public Therapist search(String id) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
 
@@ -131,7 +136,7 @@ public class TherapistDAOImpl implements TherapistDAO {
     @Override
     public String getNextId() {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
 
@@ -154,7 +159,7 @@ public class TherapistDAOImpl implements TherapistDAO {
     @Override
     public ArrayList<String> getAllTherapistNames() {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         ArrayList<String> therapistNames = new ArrayList<>();
 
@@ -177,7 +182,7 @@ public class TherapistDAOImpl implements TherapistDAO {
     @Override
     public String getTherapistNameById(int therapistId) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
 
@@ -198,7 +203,7 @@ public class TherapistDAOImpl implements TherapistDAO {
     @Override
     public String getTherapistIdByName(String therapistName) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
 
@@ -219,7 +224,7 @@ public class TherapistDAOImpl implements TherapistDAO {
     @Override
     public Optional<Therapist> findByPK(int therapistId) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
 
@@ -231,5 +236,10 @@ public class TherapistDAOImpl implements TherapistDAO {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public Therapist search(int therapistId) {
+        return null;
     }
 }

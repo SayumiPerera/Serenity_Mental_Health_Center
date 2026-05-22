@@ -21,7 +21,7 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public boolean save(Patient entity) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -45,9 +45,14 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
+    public boolean add(Patient entity) throws Exception {
+        return false;
+    }
+
+    @Override
     public boolean update(Patient entity) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -63,9 +68,19 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
+    public boolean delete(String id) throws Exception {
+        return false;
+    }
+
+    @Override
+    public Patient search(String id) throws Exception {
+        return null;
+    }
+
+    @Override
     public boolean delete(int id) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -88,7 +103,7 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public List<Patient> getAll() {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
             return session.createQuery(
@@ -103,7 +118,7 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public List<Patient> searchPatient(String searchText) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
             return session.createQuery(
@@ -127,7 +142,7 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public String getNextId() {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
             Integer lastId = session.createQuery(
@@ -147,7 +162,7 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public List<String> getPatientIdAndNames() {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
             List<Object[]> results = session.createQuery(
@@ -167,7 +182,7 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public ArrayList<String> getAllPatientNames() {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
             List<String> names = session.createQuery(
@@ -183,7 +198,7 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public String getPatientNameById(int patientId) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
             Patient patient = session.get(Patient.class, patientId);
@@ -199,7 +214,7 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public int getPatientIdByName(String patientName) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
             Integer id = session.createQuery(
@@ -217,7 +232,7 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public Patient getPatientById(int patientId) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
             return session.get(Patient.class, patientId);
@@ -230,7 +245,7 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public Optional<Patient> findByPK(int patientId) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         try {
             Patient patient = session.get(Patient.class, patientId);
             return Optional.ofNullable(patient);
@@ -242,7 +257,7 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public long getTotalPatientCount() {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
             Long count = session.createQuery(
@@ -258,7 +273,7 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public Map<String, Long> getPatientCountByGender() {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         try {
             List<Object[]> results = session.createQuery(
                     "SELECT p.gender, COUNT(p.id) " +
@@ -278,5 +293,10 @@ public class PatientDAOImpl implements PatientDAO {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public Patient search(int patientId) {
+        return null;
     }
 }

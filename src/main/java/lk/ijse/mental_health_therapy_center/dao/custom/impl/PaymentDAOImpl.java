@@ -1,11 +1,11 @@
 package lk.ijse.mental_health_therapy_center.dao.custom.impl;
 
-import com.mysql.cj.Session;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import lk.ijse.mental_health_therapy_center.config.FactoryConfiguration;
 import lk.ijse.mental_health_therapy_center.dao.custom.PaymentDAO;
 import lk.ijse.mental_health_therapy_center.entity.Payment;
 
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public boolean save(Payment entity) {
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -34,8 +34,13 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
 
     @Override
+    public boolean add(Payment entity) throws Exception {
+        return false;
+    }
+
+    @Override
     public boolean update(Payment entity) {
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -52,7 +57,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public boolean delete(String id) {
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -73,7 +78,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public List<Payment> getAll() {
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         try {
             return session.createQuery(
                     "FROM Payment",
@@ -87,7 +92,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public Payment search(String id) {
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         try {
             return session.get(Payment.class, Integer.parseInt(id));
         } finally {
@@ -97,7 +102,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public double getTotalPaymentsByPatient(int patientId) throws Exception {
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         try {
             Query<Double> query = session.createQuery(
                     "SELECT SUM(p.amount) FROM Payment p " +
@@ -115,7 +120,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public int generateNextPaymentId() throws Exception {
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         try {
             Integer lastId = session.createQuery(
                             "SELECT MAX(p.id) FROM Payment p",
@@ -130,7 +135,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public List<Payment> getPaymentsBySession(int sessionId) throws Exception {
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         try {
             Query<Payment> query = session.createQuery(
                     "FROM Payment p WHERE p.therapySession.id = :sessionId",
@@ -145,7 +150,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public List<Payment> getPaymentsByPatient(int patientId) throws Exception {
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         try {
             Query<Payment> query = session.createQuery(
                     "FROM Payment p WHERE p.patient.id = :patientId",
@@ -160,7 +165,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public int getNextPaymentId() {
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
             Integer lastId = session.createQuery(
@@ -179,19 +184,29 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public boolean savePayment(Session session, Payment payment) {
-
-        try {
-            session.merge(payment);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        return false;
     }
+
+//    @Override
+//    public boolean savePayment(org.hibernate.Session session, Payment payment) {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean savePayment(Session session, Payment payment) {
+//
+//        try {
+//            session.merge(payment);
+//            return true;
+//        } catch (Exception e) {
+//            return false;
+//        }
+//    }
 
     @Override
     public List<Object[]> getPendingPayments() {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         try {
             String hql =
                     "SELECT p.patient.name, p.amount, p.date " +

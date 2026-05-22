@@ -18,7 +18,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     @Override
     public boolean save(TherapyProgram entity) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -40,9 +40,14 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     }
 
     @Override
+    public boolean add(TherapyProgram entity) throws Exception {
+        return false;
+    }
+
+    @Override
     public boolean update(TherapyProgram entity) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -66,7 +71,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     @Override
     public boolean delete(String id) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -75,9 +80,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
                     session.get(TherapyProgram.class, Integer.parseInt(id));
 
             if (therapyProgram != null) {
-
                 session.remove(therapyProgram);
-
                 transaction.commit();
                 return true;
             }
@@ -98,7 +101,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     @Override
     public List<TherapyProgram> getAll() {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
 
@@ -115,7 +118,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     @Override
     public TherapyProgram search(String id) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
 
@@ -132,7 +135,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     @Override
     public String getNextId() {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
 
@@ -155,7 +158,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     @Override
     public ArrayList<String> getAllProgramNames() {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         ArrayList<String> programNames = new ArrayList<>();
 
@@ -178,7 +181,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     @Override
     public String getProgramNameById(int programId) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
 
@@ -199,7 +202,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     @Override
     public String getProgramIdByName(String programName) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
 
@@ -220,7 +223,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     @Override
     public double getProgramFeeById(int programId) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
 
@@ -241,7 +244,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     @Override
     public Optional<TherapyProgram> findByPK(int programId) {
 
-        Session session = factoryConfiguration.getSession();
+        Session session = (Session) factoryConfiguration.getSession();
 
         try {
 
@@ -253,5 +256,15 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public TherapyProgram search(int programId) {
+        return null;
+    }
+
+    @Override
+    public TherapyProgram findById(int i) {
+        return null;
     }
 }

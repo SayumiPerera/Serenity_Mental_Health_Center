@@ -2,13 +2,6 @@ package lk.ijse.mental_health_therapy_center.bo;
 
 import lk.ijse.mental_health_therapy_center.bo.custom.impl.*;
 
-/**
- * Factory that returns the correct BO implementation for a given BOTypes enum.
- *
- * Uses traditional switch-case (Java 11 safe).
- * If you have bumped pom.xml to Java 17 the arrow-switch version also works,
- * but this version compiles on any Java version.
- */
 public class BOFactory {
 
     private static BOFactory boFactory;
@@ -20,6 +13,10 @@ public class BOFactory {
             boFactory = new BOFactory();
         }
         return boFactory;
+    }
+
+    public static BOFactory getInstance() {
+        return getBoFactory();
     }
 
     public enum BOTypes {

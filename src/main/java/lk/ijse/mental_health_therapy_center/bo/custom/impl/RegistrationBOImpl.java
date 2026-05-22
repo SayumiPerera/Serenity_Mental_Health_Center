@@ -1,4 +1,6 @@
 package lk.ijse.mental_health_therapy_center.bo.custom.impl;
 
-public class RegistrationBOImpl {
+import lk.ijse.mental_health_therapy_center.bo.custom.RegistrationBO;
+
+public class RegistrationBOImpl implements RegistrationBO {
 }

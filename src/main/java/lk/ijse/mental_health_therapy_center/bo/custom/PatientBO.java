@@ -9,10 +9,10 @@ import java.util.Map;
 
 public interface PatientBO extends SuperBO {
 
-    boolean addPatient(PatientDTO patientDTO);
-    boolean updatePatient(PatientDTO patientDTO);
+    boolean addPatient(PatientDTO patientDTO) throws Exception;
+    boolean updatePatient(PatientDTO patientDTO) throws Exception;
     boolean deletePatient(int id);
-    List<PatientDTO> getAllPatient();
+    List<PatientDTO> getAllPatient() throws Exception;
     List<PatientDTO> searchPatient(String searchText) throws Exception;
     String generatePatientId();
     int getNextPatientId();
@@ -22,4 +22,14 @@ public interface PatientBO extends SuperBO {
     ArrayList<String> getAllPatientNames();
     long getTotalPatientCount();
     Map<String, Long> getPatientCountByGender();
+
+    boolean save(PatientDTO patientDTO);
+
+    boolean update(PatientDTO patientDTO);
+
+    boolean delete(int id);
+
+    List<PatientDTO> getAll();
+
+    int generateNextId();
 }

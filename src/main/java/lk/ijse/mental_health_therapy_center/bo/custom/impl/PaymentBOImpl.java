@@ -28,7 +28,7 @@ public class PaymentBOImpl implements PaymentBO {
             int programId
     ) throws Exception {
 
-        Session session = FactoryConfiguration.getInstance().getSession();
+        Session session = (Session) FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -61,7 +61,7 @@ public class PaymentBOImpl implements PaymentBO {
     }
 
     @Override
-    public List<PaymentDTO> getAllPayments() {
+    public List<PaymentDTO> getAllPayments() throws Exception {
         List<Payment> payments = paymentDAO.getAll();
         ArrayList<PaymentDTO> paymentDTOS = new ArrayList<>();
 
@@ -150,7 +150,7 @@ public class PaymentBOImpl implements PaymentBO {
     @Override
     public Map<String, Double> getMonthlyRevenue() {
         Map<String, Double> monthlyRevenue = new LinkedHashMap<>();
-        Session session = FactoryConfiguration.getInstance().getSession();
+        Session session = (Session) FactoryConfiguration.getInstance().getSession();
         Transaction transaction = null;
 
         try {
@@ -193,5 +193,30 @@ public class PaymentBOImpl implements PaymentBO {
     @Override
     public List<Object[]> getPendingPayments() {
         return paymentDAO.getPendingPayments();
+    }
+
+    @Override
+    public boolean update(PaymentDTO paymentDTO) {
+        return false;
+    }
+
+    @Override
+    public boolean save(PaymentDTO paymentDTO) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return false;
+    }
+
+    @Override
+    public List<PaymentDTO> getAll() {
+        return List.of();
+    }
+
+    @Override
+    public int getNextId() {
+        return 0;
     }
 }

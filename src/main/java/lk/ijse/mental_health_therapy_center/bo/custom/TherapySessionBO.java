@@ -7,15 +7,15 @@ import java.util.ArrayList;
 
 public interface TherapySessionBO extends SuperBO {
 
-    boolean saveTherapySession(TherapySessionDTO dto);
+    boolean saveTherapySession(TherapySessionDTO dto) throws Exception;
 
-    boolean updateTherapySession(TherapySessionDTO dto);
+    boolean updateTherapySession(TherapySessionDTO dto) throws Exception;
 
     boolean deleteTherapySession(int sessionId);
 
     TherapySessionDTO searchTherapySession(int sessionId);
 
-    ArrayList<TherapySessionDTO> getAllTherapySessions();
+    ArrayList<TherapySessionDTO> getAllTherapySessions() throws Exception;
 
     String getNextSessionId();
 }

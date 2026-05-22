@@ -213,7 +213,7 @@ public class TherapistController implements Initializable {
 
         if (therapist != null) {
 
-            txtId.setText(therapist.getId());
+            txtId.setText(String.valueOf(therapist.getId()));
             txtName.setText(therapist.getName());
             txtEmail.setText(therapist.getEmail());
             txtPhone.setText(String.valueOf(therapist.getPhone()));

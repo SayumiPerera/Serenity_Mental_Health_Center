@@ -17,7 +17,7 @@ public class PatientBOImpl implements PatientBO {
     private final PatientDAO patientDAO = DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.PATIENT);
 
     @Override
-    public boolean addPatient(PatientDTO patientDTO) {
+    public boolean addPatient(PatientDTO patientDTO) throws Exception {
 
         return patientDAO.save(
                 new Patient(
@@ -33,7 +33,7 @@ public class PatientBOImpl implements PatientBO {
     }
 
     @Override
-    public boolean updatePatient(PatientDTO patientDTO) {
+    public boolean updatePatient(PatientDTO patientDTO) throws Exception {
 
         return patientDAO.update(
                 new Patient(
@@ -54,7 +54,7 @@ public class PatientBOImpl implements PatientBO {
     }
 
     @Override
-    public List<PatientDTO> getAllPatient() {
+    public List<PatientDTO> getAllPatient() throws Exception {
 
         List<Patient> patients = patientDAO.getAll();
         List<PatientDTO> patientDTOList = new ArrayList<>();
@@ -163,5 +163,30 @@ public class PatientBOImpl implements PatientBO {
     @Override
     public Map<String, Long> getPatientCountByGender() {
         return patientDAO.getPatientCountByGender();
+    }
+
+    @Override
+    public boolean save(PatientDTO patientDTO) {
+        return false;
+    }
+
+    @Override
+    public boolean update(PatientDTO patientDTO) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return false;
+    }
+
+    @Override
+    public List<PatientDTO> getAll() {
+        return List.of();
+    }
+
+    @Override
+    public int generateNextId() {
+        return 0;
     }
 }

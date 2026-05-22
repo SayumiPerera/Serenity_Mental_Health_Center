@@ -1,5 +1,6 @@
 package lk.ijse.mental_health_therapy_center.bo.custom;
 
+import lk.ijse.mental_health_therapy_center.bo.SuperBO;
 import lk.ijse.mental_health_therapy_center.dto.UserDTO;
 import lk.ijse.mental_health_therapy_center.entity.User;
 import lk.ijse.mental_health_therapy_center.exception.LoginException;
@@ -8,7 +9,7 @@ import lk.ijse.mental_health_therapy_center.tm.UserTM;
 import java.util.List;
 import java.util.Map;
 
-public interface UserBO {
+public interface UserBO extends SuperBO {
 
     /**
      * Verifies plain-text password against the BCrypt hash stored in the DB.

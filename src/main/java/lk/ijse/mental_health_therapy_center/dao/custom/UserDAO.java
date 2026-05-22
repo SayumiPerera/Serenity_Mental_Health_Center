@@ -1,6 +1,6 @@
 package lk.ijse.mental_health_therapy_center.dao.custom;
 
-import lk.ijse.mental_health_therapy_center.config.HibernateUtil;
+import lk.ijse.mental_health_therapy_center.config.FactoryConfiguration;
 import lk.ijse.mental_health_therapy_center.dao.CrudDAO;
 import lk.ijse.mental_health_therapy_center.entity.User;
 import org.hibernate.Session;

@@ -19,4 +19,8 @@ public interface TherapyProgramDAO extends CrudDAO<TherapyProgram> {
     double getProgramFeeById(int programId);
 
     Optional<TherapyProgram> findByPK(int programId);
+
+    TherapyProgram search(int programId);
+
+    TherapyProgram findById(int i);
 }

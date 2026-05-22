@@ -34,4 +34,11 @@ public class Payment {
     @ManyToOne
     @JoinColumn(name = "program_id")
     private TherapyProgram program;
+
+    public int getId() {
+        return 0;
+    }
+
+    public void setId(int id) {
+    }
 }

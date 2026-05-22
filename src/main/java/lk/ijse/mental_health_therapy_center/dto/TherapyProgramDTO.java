@@ -12,4 +12,11 @@ public class TherapyProgramDTO {
     private String name;
     private String duration;
     private double fee;
+
+    public TherapyProgramDTO(String id, String name, String duration, double fee) {
+    }
+
+    public String getProgramName() {
+        return "";
+    }
 }

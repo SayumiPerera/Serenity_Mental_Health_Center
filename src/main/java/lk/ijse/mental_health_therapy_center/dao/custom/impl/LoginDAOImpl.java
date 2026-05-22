@@ -11,6 +11,35 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class LoginDAOImpl implements LoginDAO {
+    @Override
+    public boolean save(Object entity) throws Exception {
+        return false;
+    }
+
+    @Override
+    public boolean add(Object entity) throws Exception {
+        return false;
+    }
+
+    @Override
+    public boolean update(Object entity) throws Exception {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) throws Exception {
+        return false;
+    }
+
+    @Override
+    public Object search(String id) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List getAll() throws Exception {
+        return List.of();
+    }
 //    @Override
 //    public boolean save(User entity) throws Exception {
 //        return false;

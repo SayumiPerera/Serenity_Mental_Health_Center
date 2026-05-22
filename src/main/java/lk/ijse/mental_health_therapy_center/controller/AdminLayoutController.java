@@ -2,6 +2,7 @@ package lk.ijse.mental_health_therapy_center.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.CategoryAxis;
@@ -12,7 +13,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -69,12 +72,27 @@ public class AdminLayoutController implements Initializable {
     // =========================
 
     @FXML
+    private AnchorPane contentPane;
+
+    @FXML
     void btnTherapistsOnAction(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Therapists");
-        alert.setHeaderText("Therapist Management");
-        alert.setContentText("Navigate to Therapist Management Page");
-        alert.showAndWait();
+        try {
+            AnchorPane view = FXMLLoader.load(
+                    getClass().getResource("/lk/ijse/mental_health_therapy_center/therapist.fxml")
+            );
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(view);
+
+            // Make it fill the content pane
+            AnchorPane.setTopAnchor(view, 0.0);
+            AnchorPane.setBottomAnchor(view, 0.0);
+            AnchorPane.setLeftAnchor(view, 0.0);
+            AnchorPane.setRightAnchor(view, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to load Therapist page").show();
+        }
     }
 
     @FXML

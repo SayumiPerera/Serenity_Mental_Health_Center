@@ -13,15 +13,17 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
     @Override
     public boolean save(TherapySession entity) {
 
-        Session session = FactoryConfiguration.getInstance().getSession();
+        Session session = (Session) FactoryConfiguration.getInstance();
         Transaction transaction = session.beginTransaction();
 
         try {
             session.persist(entity);
+
             transaction.commit();
             return true;
 
         } catch (Exception e) {
+
             transaction.rollback();
             return false;
 
@@ -31,17 +33,68 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
     }
 
     @Override
+    public boolean add(TherapySession entity) throws Exception {
+        return save(entity);
+    }
+
+    @Override
     public boolean update(TherapySession entity) {
 
-        Session session = FactoryConfiguration.getInstance().getSession();
+        Session session = FactoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
+
             session.merge(entity);
+
             transaction.commit();
             return true;
 
         } catch (Exception e) {
+
+            transaction.rollback();
+            return false;
+
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public boolean delete(String id) throws Exception {
+
+        return delete(Integer.parseInt(id));
+    }
+
+    @Override
+    public TherapySession search(String id) throws Exception {
+
+        return search(Integer.parseInt(id));
+    }
+
+    @Override
+    public boolean delete(int sessionId) {
+
+        Session session = FactoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+
+            TherapySession therapySession =
+                    session.get(TherapySession.class, sessionId);
+
+            if (therapySession != null) {
+
+                session.remove(therapySession);
+
+                transaction.commit();
+                return true;
+            }
+
+            return false;
+
+        } catch (Exception e) {
+
             transaction.rollback();
             return false;
 
@@ -52,38 +105,16 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
 
     @Override
     public boolean delete(Integer sessionId) {
-
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-
-        try {
-
-            TherapySession therapySession =
-                    session.get(TherapySession.class, sessionId);
-
-            if (therapySession != null) {
-                session.remove(therapySession);
-                transaction.commit();
-                return true;
-            }
-
-            return false;
-
-        } catch (Exception e) {
-            transaction.rollback();
-            return false;
-
-        } finally {
-            session.close();
-        }
+        return false;
     }
 
     @Override
     public TherapySession search(int sessionId) {
 
-        Session session = FactoryConfiguration.getInstance().getSession();
+        Session session = FactoryConfiguration.getSession();
 
         try {
+
             return session.get(TherapySession.class, sessionId);
 
         } finally {
@@ -94,9 +125,10 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
     @Override
     public List<TherapySession> getAll() {
 
-        Session session = FactoryConfiguration.getInstance().getSession();
+        Session session = FactoryConfiguration.getSession();
 
         try {
+
             return session.createQuery(
                     "FROM TherapySession",
                     TherapySession.class
@@ -110,7 +142,7 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
     @Override
     public String getNextId() {
 
-        Session session = FactoryConfiguration.getInstance().getSession();
+        Session session = FactoryConfiguration.getSession();
 
         try {
 

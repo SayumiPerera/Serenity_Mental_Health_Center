@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface TherapyProgramBO extends SuperBO {
 
-    List<TherapyProgramDTO> getAllPrograms();
+    List<TherapyProgramDTO> getAllPrograms() throws Exception;
 
-    boolean addTherapyProgram(TherapyProgramDTO therapyProgramDTO);
+    boolean addTherapyProgram(TherapyProgramDTO therapyProgramDTO) throws Exception;
 
-    boolean updateTherapyProgram(TherapyProgramDTO therapyProgramDTO);
+    boolean updateTherapyProgram(TherapyProgramDTO therapyProgramDTO) throws Exception;
 
-    boolean deleteTherapyProgram(String id);
+    boolean deleteTherapyProgram(String id) throws Exception;
 
     String getNextProgramId();
 

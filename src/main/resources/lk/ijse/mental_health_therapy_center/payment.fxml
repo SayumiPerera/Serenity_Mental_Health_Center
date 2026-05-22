@@ -14,7 +14,7 @@
 <AnchorPane prefHeight="650.0"
             prefWidth="712.0"
             style="-fx-background-color: #F4FFF0;"
-            xmlns="http://javafx.com/javafx/21"
+            xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="lk.ijse.mental_health_therapy_center.controller.PaymentController">
 

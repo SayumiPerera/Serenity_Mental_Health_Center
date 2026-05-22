@@ -41,4 +41,7 @@ public class TherapySession {
     private LocalDate sessionDate;
 
 
+    public int getId() {
+        return 0;
+    }
 }

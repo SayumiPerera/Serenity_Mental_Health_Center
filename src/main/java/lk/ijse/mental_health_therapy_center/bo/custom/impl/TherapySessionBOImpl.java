@@ -23,7 +23,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     TherapyProgramDAO therapyProgramDAO = DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.THERAPY_PROGRAM);
 
     @Override
-    public boolean saveTherapySession(TherapySessionDTO dto) {
+    public boolean saveTherapySession(TherapySessionDTO dto) throws Exception {
 
         Patient patient = patientDAO.search(dto.getPatientId());
         Therapist therapist = therapistDAO.search(dto.getTherapistId());
@@ -47,7 +47,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     }
 
     @Override
-    public boolean updateTherapySession(TherapySessionDTO dto) {
+    public boolean updateTherapySession(TherapySessionDTO dto) throws Exception {
 
         Patient patient = patientDAO.search(dto.getPatientId());
         Therapist therapist = therapistDAO.search(dto.getTherapistId());
@@ -100,7 +100,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     }
 
     @Override
-    public ArrayList<TherapySessionDTO> getAllTherapySessions() {
+    public ArrayList<TherapySessionDTO> getAllTherapySessions() throws Exception {
 
         List<TherapySession> sessions = therapySessionDAO.getAll();
         ArrayList<TherapySessionDTO> dtoList = new ArrayList<>();

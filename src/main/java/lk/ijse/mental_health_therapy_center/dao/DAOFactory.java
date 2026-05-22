@@ -2,11 +2,6 @@ package lk.ijse.mental_health_therapy_center.dao;
 
 import lk.ijse.mental_health_therapy_center.dao.custom.impl.*;
 
-/**
- * Factory that returns the correct DAO implementation for a given DAOTypes enum.
- *
- * Uses traditional switch-case (Java 11 safe).
- */
 public class DAOFactory {
 
     private static DAOFactory daoFactory;
@@ -18,6 +13,10 @@ public class DAOFactory {
             daoFactory = new DAOFactory();
         }
         return daoFactory;
+    }
+
+    public static DAOFactory getInstance() {
+        return getDaoFactory();
     }
 
     public enum DAOTypes {

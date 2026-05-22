@@ -16,4 +16,14 @@ public interface TherapistBO extends SuperBO {
     List<TherapistDTO> getAll() throws Exception;
 
     TherapistDTO searchById(int id) throws Exception;
+
+    boolean saveTherapist(TherapistDTO dto);
+
+    boolean updateTherapist(TherapistDTO dto);
+
+    boolean deleteTherapist(String id);
+
+    Object getAllTherapists();
+
+    String getNextTherapistId();
 }

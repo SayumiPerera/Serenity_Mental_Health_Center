@@ -13,4 +13,6 @@ public class TherapistDTO {
     private String phone;
     private String program;
 
+    public TherapistDTO(String id, String name, String email, int phone, String program) {
+    }
 }

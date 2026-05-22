@@ -92,4 +92,29 @@ public class TherapistBOImpl implements TherapistBO {
                         : null
         );
     }
+
+    @Override
+    public boolean saveTherapist(TherapistDTO dto) {
+        return false;
+    }
+
+    @Override
+    public boolean updateTherapist(TherapistDTO dto) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteTherapist(String id) {
+        return false;
+    }
+
+    @Override
+    public Object getAllTherapists() {
+        return null;
+    }
+
+    @Override
+    public String getNextTherapistId() {
+        return "";
+    }
 }

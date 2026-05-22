@@ -16,7 +16,7 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
                     .getDAO(DAOFactory.DAOTypes.THERAPY_PROGRAM);
 
     @Override
-    public List<TherapyProgramDTO> getAllPrograms() {
+    public List<TherapyProgramDTO> getAllPrograms() throws Exception {
 
         List<TherapyProgram> programs = therapyProgramDAO.getAll();
 
@@ -36,7 +36,7 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
     }
 
     @Override
-    public boolean addTherapyProgram(TherapyProgramDTO therapyProgramDTO) {
+    public boolean addTherapyProgram(TherapyProgramDTO therapyProgramDTO) throws Exception {
 
         TherapyProgram therapyProgram = new TherapyProgram();
 
@@ -49,7 +49,7 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
     }
 
     @Override
-    public boolean updateTherapyProgram(TherapyProgramDTO therapyProgramDTO) {
+    public boolean updateTherapyProgram(TherapyProgramDTO therapyProgramDTO) throws Exception {
 
         TherapyProgram therapyProgram = new TherapyProgram();
 
@@ -62,7 +62,7 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
     }
 
     @Override
-    public boolean deleteTherapyProgram(String id) {
+    public boolean deleteTherapyProgram(String id) throws Exception {
         return therapyProgramDAO.delete(id);
     }
 
