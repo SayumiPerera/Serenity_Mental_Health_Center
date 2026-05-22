@@ -79,7 +79,6 @@
                                     <font><Font name="System Bold" size="13.0"/></font>
                                 </Label>
 
-                                <!-- Therapists nav button -->
                                 <Button
                                         fx:id="btnTherapists"
                                         onAction="#btnTherapistsOnAction"
@@ -94,7 +93,6 @@
                                     <font><Font name="System Bold" size="13.0"/></font>
                                 </Button>
 
-                                <!-- Therapy Programmes nav button -->
                                 <Button
                                         fx:id="btnTherapyPrograms"
                                         onAction="#btnTherapyProgramsOnAction"
@@ -130,7 +128,6 @@
                                     <font><Font name="System Bold" size="13.0"/></font>
                                 </Label>
 
-                                <!-- Therapist Performance -->
                                 <Button
                                         fx:id="btnTherapistPerformance"
                                         onAction="#btnTherapistPerformanceOnAction"
@@ -145,7 +142,6 @@
                                     <font><Font name="System Bold" size="13.0"/></font>
                                 </Button>
 
-                                <!-- Therapy Session Statistics -->
                                 <Button
                                         fx:id="btnSessionStatistics"
                                         onAction="#btnSessionStatisticsOnAction"
@@ -160,7 +156,6 @@
                                     <font><Font name="System Bold" size="13.0"/></font>
                                 </Button>
 
-                                <!-- View Patient Therapy History -->
                                 <Button
                                         fx:id="btnPatientTherapyHistory"
                                         onAction="#btnPatientTherapyHistoryOnAction"
@@ -263,6 +258,18 @@
 
             </children>
         </VBox>
+
+        <!-- ═══ CONTENT PANE - covers dashboard when nav button clicked ═══ -->
+        <AnchorPane
+                fx:id="contentPane"
+                prefHeight="680.0"
+                prefWidth="740.0"
+                style="-fx-background-color: #F5F7FA;"
+                visible="false"
+                AnchorPane.topAnchor="0"
+                AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0"/>
 
     </children>
 

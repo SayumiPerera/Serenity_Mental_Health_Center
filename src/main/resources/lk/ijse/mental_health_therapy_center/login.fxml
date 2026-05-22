@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="450.0"
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="450.0"
             style="-fx-background-radius: 30; -fx-background-color: #84cf6d;"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"

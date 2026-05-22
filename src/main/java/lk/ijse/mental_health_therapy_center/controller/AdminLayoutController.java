@@ -24,14 +24,12 @@ public class AdminLayoutController implements Initializable {
     @FXML
     private Label lblWelcome;
 
-    // Navigation Buttons
     @FXML
     private Button btnTherapists;
 
     @FXML
     private Button btnTherapyPrograms;
 
-    // Report Buttons
     @FXML
     private Button btnTherapistPerformance;
 
@@ -41,7 +39,6 @@ public class AdminLayoutController implements Initializable {
     @FXML
     private Button btnPatientTherapyHistory;
 
-    // Charts
     @FXML
     private AreaChart<String, Number> therapyOverviewChart;
 
@@ -60,6 +57,9 @@ public class AdminLayoutController implements Initializable {
     @FXML
     private NumberAxis yAxisSession;
 
+    @FXML
+    private AnchorPane contentPane;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadOverviewChart();
@@ -68,22 +68,28 @@ public class AdminLayoutController implements Initializable {
     }
 
     // =========================
-    // BUTTON ACTIONS
+    // NAVIGATION
     // =========================
 
     @FXML
-    private AnchorPane contentPane;
+    void btnTherapistsOnAction(ActionEvent event) {
+        loadPage("therapist.fxml");
+    }
 
     @FXML
-    void btnTherapistsOnAction(ActionEvent event) {
+    void btnTherapyProgramsOnAction(ActionEvent event) {
+        loadPage("therapyProgram.fxml");
+    }
+
+    private void loadPage(String fxmlFile) {
         try {
             AnchorPane view = FXMLLoader.load(
-                    getClass().getResource("/lk/ijse/mental_health_therapy_center/therapist.fxml")
+                    getClass().getResource("/lk/ijse/mental_health_therapy_center/" + fxmlFile)
             );
             contentPane.getChildren().clear();
             contentPane.getChildren().add(view);
+            contentPane.setVisible(true);
 
-            // Make it fill the content pane
             AnchorPane.setTopAnchor(view, 0.0);
             AnchorPane.setBottomAnchor(view, 0.0);
             AnchorPane.setLeftAnchor(view, 0.0);
@@ -91,18 +97,13 @@ public class AdminLayoutController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Failed to load Therapist page").show();
+            new Alert(Alert.AlertType.ERROR, "Failed to load page: " + fxmlFile).show();
         }
     }
 
-    @FXML
-    void btnTherapyProgramsOnAction(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Therapy Programmes");
-        alert.setHeaderText("Programme Management");
-        alert.setContentText("Navigate to Therapy Programme Page");
-        alert.showAndWait();
-    }
+    // =========================
+    // REPORTS
+    // =========================
 
     @FXML
     void btnTherapistPerformanceOnAction(ActionEvent event) {
@@ -115,7 +116,6 @@ public class AdminLayoutController implements Initializable {
                 
                 Overall Therapist Performance is Excellent.
                 """;
-
         showReportDialog("Therapist Performance", report);
     }
 
@@ -131,7 +131,6 @@ public class AdminLayoutController implements Initializable {
                 
                 Session growth is increasing steadily.
                 """;
-
         showReportDialog("Session Statistics", report);
     }
 
@@ -146,7 +145,6 @@ public class AdminLayoutController implements Initializable {
                 
                 Therapy histories loaded successfully.
                 """;
-
         showReportDialog("Patient Therapy History", report);
     }
 
@@ -157,30 +155,26 @@ public class AdminLayoutController implements Initializable {
     private void loadOverviewChart() {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Therapy Programmes");
-
         series.getData().add(new XYChart.Data<>("Jan", 15));
         series.getData().add(new XYChart.Data<>("Feb", 22));
         series.getData().add(new XYChart.Data<>("Mar", 30));
         series.getData().add(new XYChart.Data<>("Apr", 40));
         series.getData().add(new XYChart.Data<>("May", 52));
-
         therapyOverviewChart.getData().add(series);
     }
 
     private void loadSessionChart() {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Sessions");
-
         series.getData().add(new XYChart.Data<>("Week 1", 10));
         series.getData().add(new XYChart.Data<>("Week 2", 18));
         series.getData().add(new XYChart.Data<>("Week 3", 25));
         series.getData().add(new XYChart.Data<>("Week 4", 32));
-
         sessionChart.getData().add(series);
     }
 
     // =========================
-    // ALERTS & REPORTS
+    // HELPERS
     // =========================
 
     private void showWelcomeMessage() {
@@ -199,7 +193,6 @@ public class AdminLayoutController implements Initializable {
     }
 
     private void showReportDialog(String title, String content) {
-
         TextArea textArea = new TextArea(content);
         textArea.setEditable(false);
         textArea.setWrapText(true);

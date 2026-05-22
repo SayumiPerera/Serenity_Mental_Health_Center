@@ -24,14 +24,14 @@ public class FactoryConfiguration {
                             .getResourceAsStream("hibernate.properties")
             );
 
-            configuration.setProperties(properties)
-                    .addAnnotatedClass(Patient.class)
-                    .addAnnotatedClass(Payment.class)
-                    .addAnnotatedClass(Therapist.class)
-                    .addAnnotatedClass(TherapyProgram.class)
-                    .addAnnotatedClass(TherapySession.class)
-                    .addAnnotatedClass(Registration.class)
-                    .addAnnotatedClass(User.class);
+            configuration.setProperties(properties);
+            configuration.addAnnotatedClass(Patient.class);
+            configuration .addAnnotatedClass(Payment.class);
+            configuration .addAnnotatedClass(Therapist.class);
+            configuration .addAnnotatedClass(TherapyProgram.class);
+            configuration .addAnnotatedClass(TherapySession.class);
+            configuration  .addAnnotatedClass(Registration.class);
+            configuration .addAnnotatedClass(User.class);
 
             sessionFactory = configuration.buildSessionFactory();
 
